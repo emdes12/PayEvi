@@ -1,0 +1,143 @@
+@import "./base.css";
+
+#app {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+
+  font-weight: normal;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: hsla(160, 100%, 37%, 1);
+  margin-bottom: 5px;
+}
+
+main {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-top: 10px;
+}
+
+section {
+  border-right: 1px solid var(--vt-c-divider-dark-1);
+}
+
+section,
+.preview {
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: 30px;
+}
+
+.preview {
+  grid-template-rows: 2fr 100px;
+}
+
+.form-container {
+  border-radius: 10px;
+  min-height: 400px;
+  max-height: 500px;
+  overflow-x: hidden;
+  border: 1px solid hsla(160, 100%, 37%, 1);
+}
+
+.form-btns {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.form-btns div {
+  background-color: rgba(0, 189, 126, 0.726);
+  height: 30px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.form-btns div.active {
+  background-color: #fff;
+}
+
+form {
+  padding: 20px;
+}
+
+.input-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 3px;
+  border: 1px solid var(--vt-c-divider-dark-1);
+}
+
+::placeholder {
+  color: var(--vt-c-text-light-2);
+}
+
+.invoice-preview {
+  position: relative;
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  background-color: var(--vt-c-text-dark-2);
+}
+
+.btn-right {
+  width: 100%;
+  display: flex;
+  padding: 10px;
+  justify-content: flex-end;
+}
+
+.btn-betw {
+  width: 100%;
+  display: flex;
+  padding: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+button {
+  padding: 12px 30px;
+  border: none;
+  background-color: hsla(160, 100%, 37%, 1);
+  color: #fff;
+  cursor: pointer;
+}
+
+.btn-add {
+  border: none;
+  display: grid;
+  place-items: center;
+  font-weight: 600;
+  cursor: pointer;
+  background-color: hsla(160, 100%, 37%, 1);
+  color: #fff;
+}
+
+/* table */
+
+iframe {
+  width: 100%;
+  height: max-content;
+}
+
+.invoice-preview {
+  padding: 20px;
+}
