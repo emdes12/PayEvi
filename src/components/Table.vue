@@ -19,3 +19,14 @@ export default {
   emits: ["remove-good"],
 };
 </script>
+
+<style scoped>
+td {
+  color: #fff;
+  padding: 0 13px;
+}
+
+td.remove {
+  color: #ff0000;
+}
+</style>

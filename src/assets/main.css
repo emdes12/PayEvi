@@ -1,11 +1,17 @@
 @import "./base.css";
 
 #app {
-  max-width: 1280px;
+  max-width: 1500px;
+  overflow-y: scroll;
+  height: 100vh;
   margin: 0 auto;
   padding: 2rem;
-
+  background-color: rgb(15, 27, 22);
   font-weight: normal;
+}
+
+b {
+  font-weight: 600;
 }
 
 h1,
@@ -15,7 +21,12 @@ h4,
 h5,
 h6 {
   color: hsla(160, 100%, 37%, 1);
-  margin-bottom: 5px;
+  margin-bottom: 3px;
+}
+
+a {
+  text-decoration: none;
+  color: hsla(160, 100%, 37%, 1);
 }
 
 main {
@@ -29,21 +40,24 @@ section {
   border-right: 1px solid var(--vt-c-divider-dark-1);
 }
 
-section,
-.preview {
+section {
   display: grid;
   grid-template-columns: 1fr;
   padding: 30px;
 }
 
 .preview {
-  grid-template-rows: 2fr 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  grid-template-rows: 2fr;
 }
 
 .form-container {
   border-radius: 10px;
   min-height: 400px;
-  max-height: 500px;
+  max-height: 600px;
   overflow-x: hidden;
   border: 1px solid hsla(160, 100%, 37%, 1);
 }
@@ -55,13 +69,17 @@ section,
 }
 
 .form-btns div {
-  background-color: rgba(0, 189, 126, 0.726);
+  background-color: hsla(160, 100%, 37%, 1);
   height: 30px;
   font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+}
+
+label {
+  color: rgb(201, 240, 227);
 }
 
 .form-btns div.active {
@@ -82,6 +100,8 @@ input {
   width: 100%;
   padding: 8px 10px;
   border-radius: 3px;
+  background-color: rgb(2, 255, 171);
+  font-weight: 600;
   border: 1px solid var(--vt-c-divider-dark-1);
 }
 
@@ -95,7 +115,6 @@ input {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
-  background-color: var(--vt-c-text-dark-2);
 }
 
 .btn-right {
@@ -103,6 +122,12 @@ input {
   display: flex;
   padding: 10px;
   justify-content: flex-end;
+}
+
+.btn-top {
+  position: absolute;
+  top: -60px;
+  right: 10%;
 }
 
 .btn-betw {
@@ -131,13 +156,19 @@ button {
   color: #fff;
 }
 
-/* table */
-
-iframe {
-  width: 100%;
-  height: max-content;
+.text-center {
+  text-align: center;
 }
 
+.text-right {
+  text-align: right;
+}
+
+td.remove {
+  color: #ff0000;
+  font-weight: 600;
+  cursor: pointer;
+}
 .invoice-preview {
   padding: 20px;
 }

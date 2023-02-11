@@ -1,5 +1,5 @@
 <template>
-  <form class="business-form" @submit="moveToClient">
+  <form class="business-form">
     <h3>Your Business Details</h3>
     <div class="input-container">
       <label for="name">Business Name:</label>
@@ -32,7 +32,7 @@
     </div>
 
     <div class="btn-right">
-      <button>Next</button>
+      <button @click="moveToClient">Next</button>
     </div>
   </form>
 </template>

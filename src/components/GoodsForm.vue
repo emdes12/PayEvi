@@ -1,6 +1,50 @@
 <template>
   <form class="goods-form">
-    <NotificationBar v-show="notifyShow" :notify="notify" />
+    <h3>Invoice Details</h3>
+
+    <div class="input-container">
+      <label for="invoice-name">Invoice Name:</label>
+      <input
+        type="text"
+        v-model="invoice.name"
+        id="invoice-name"
+        placeholder="Invoice/Quotation"
+      />
+    </div>
+
+    <div class="input-container">
+      <label for="invoice-number">Invoice No:</label>
+      <input
+        type="text"
+        v-model="invoice.number"
+        id="invoice-number"
+        placeholder="INV001"
+      />
+    </div>
+
+    <div class="input-container">
+      <label for="invoice-date">Invoice Date:</label>
+      <input type="date" v-model="invoice.date" id="invoice-date" />
+    </div>
+
+    <label
+      for="vat-checker"
+      style="
+        padding-top: 3px;
+        display: flex;
+        align-items: flex-start;
+        justify-content: left;
+      "
+    >
+      <input
+        type="checkbox"
+        style="width: 20px; height: 20px"
+        v-model="invoice.addVAT"
+        id="vat-checker"
+      />
+      Add VAT (7.5%)
+    </label>
+
     <h3>
       Goods <b v-if="goods.length">({{ goods.length }})</b>
     </h3>
@@ -59,6 +103,12 @@ export default {
         unitPrice: "",
         quantity: "",
       },
+      invoice: {
+        name: "",
+        date: "",
+        number: "",
+        addVAT: false,
+      },
       notifyShow: false,
       notify: {
         message: "",
@@ -82,6 +132,7 @@ export default {
           name: this.good.name,
           quantity: this.good.quantity,
           unitPrice: this.good.unitPrice,
+          amount: this.good.quantity * this.good.unitPrice,
         };
 
         this.$emit("add-good", goodDetails);
@@ -123,19 +174,5 @@ th {
 
 td {
   padding: 6px 6px;
-}
-
-.text-center {
-  text-align: center;
-}
-
-.text-right {
-  text-align: right;
-}
-
-td.remove {
-  color: #ff0000;
-  font-weight: 600;
-  cursor: pointer;
 }
 </style>

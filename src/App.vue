@@ -22,9 +22,9 @@ export default {
       transaction: {
         date: "",
         No: "",
-        currency: "",
       },
-      goods: "",
+      isGenerated: false,
+      goods: [],
       businessForm: true,
       clientForm: false,
       goodsForm: false,
@@ -39,9 +39,17 @@ export default {
     };
   },
   methods: {
+    gotoBusiness() {
+      if (!this.goods) {
+        this.noFill();
+      } else {
+        this.businessShow();
+        console.log("moved to business");
+      }
+    },
     makePDF() {
       window.html2canvas = html2canvas;
-      let doc = new jsPDF("p", "pt", "a4");
+      let doc = new jsPDF("p", "pt", "a4", true);
       doc.html(document.querySelector("#print-invoice"), {
         callback: function (pdf) {
           pdf.save("invoice.pdf");
@@ -50,6 +58,7 @@ export default {
     },
 
     showNotifyBar(message, classL) {
+      this.notifyShow = false;
       this.notifyShow = true;
       this.notify.message = message;
       this.notify.class = classL;
@@ -91,9 +100,11 @@ export default {
       );
     },
     addClient(name) {
-      this.ClientDetails = name;
+      this.clientDetails = name;
       this.goodShow();
       this.showNotifyBar("Client added.", "notification-bar success");
+      console.log("clientDetails:", this.clientDetails);
+      console.log("client:", name.name);
     },
     addGood(item) {
       this.goods = [...this.goods, item];
@@ -101,35 +112,31 @@ export default {
         "Item added Successfully.",
         "notification-bar success"
       );
+      this.newGoods = this.goods;
     },
     removeGood(id) {
       this.goods = this.goods.filter((item) => item.id !== id);
+      this.showNotifyBar(
+        "Item removed Successfully.",
+        "notification-bar error"
+      );
+      this.newGoods = this.goods;
     },
     generateInvoice() {
       if (!this.goods) {
         this.showNotifyBar("No items to add.", "notification-bar error");
       } else {
-        this.storeLS();
         this.showNotifyBar(
           "Your Invoice is loading.",
           "notification-bar success"
         );
       }
+      setTimeout(() => {
+        this.isGenerated = true;
+      }, 3000);
     },
     noFill() {
       this.showNotifyBar("Please Input Details.", "notification-bar error");
-    },
-    storeLS() {
-      //   storing to local storage
-      localStorage.setItem(
-        "Business Details",
-        JSON.stringify(this.businessDetails)
-      );
-      localStorage.setItem(
-        "Client Details",
-        JSON.stringify(this.clientDetails)
-      );
-      localStorage.setItem("Goods Items", JSON.stringify(this.goods));
     },
   },
 };
@@ -179,17 +186,21 @@ export default {
 
     <div class="preview">
       <div class="invoice-preview">
-        <InvoicePreview class="invoice-generated" />
+        <div class="invoice-generated">
+          <InvoicePreview
+            v-show="isGenerated"
+            :generated="isGenerated"
+            :businessDetails="businessDetails"
+            :clientDetails="clientDetails"
+            :goods="newGoods"
+          />
+        </div>
       </div>
-      <div class="btn-right">
+      <div class="btn-right btn-top">
         <button @click="makePDF">Download PDF</button>
       </div>
     </div>
   </main>
 </template>
 
-<style scoped>
-.invoice-generated {
-  height: fit-content;
-}
-</style>
+<style scoped></style>
