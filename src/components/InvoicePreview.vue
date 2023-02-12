@@ -2,29 +2,29 @@
   <aside id="print-invoice">
     <header>
       <div class="business-details">
-        <h2>{{ businessDetails.name }}</h2>
-        <p>{{ businessDetails.description }}</p>
-        <p>{{ businessDetails.number }}</p>
+        <h2 class="capitalize">{{ businessDetails.name }}</h2>
+        <p class="capitalize">{{ businessDetails.description }}</p>
+        <p class="capitalize">{{ businessDetails.number }}</p>
       </div>
-      <h1>INVOICE</h1>
+      <h1 class="uppercase">{{ invoice.name }}</h1>
     </header>
 
     <div class="container">
       <div class="head">
         <div class="client-details">
           <b>BILL TO:</b>
-          <h3>{{ clientDetails.name }}</h3>
-          <p>{{ clientDetails.address }}</p>
-          <p>{{ clientDetails.number }}</p>
+          <h3 class="capitalize">{{ clientDetails.name }}</h3>
+          <p class="capitalize">{{ clientDetails.address }}</p>
+          <p class="capitalize">{{ clientDetails.number }}</p>
         </div>
         <div class="invoice-details">
           <div class="inv-row">
             <b>INVOICE NO:</b>
-            <p>EMDES0012</p>
+            <p>{{ invoice.number }}</p>
           </div>
           <div class="inv-row">
             <b>DATE:</b>
-            <p>07/02/2023</p>
+            <p>{{ invoice.date }}</p>
           </div>
         </div>
       </div>
@@ -43,7 +43,7 @@
           
         <tr v-for="good in goods" :key="good.id">
           <td>{{ good.id }}</td>
-          <td>{{ good.name }}</td>
+          <td class="capitalize">{{ good.name }}</td>
           <td class="text-center">{{ good.quantity }}</td>
           <td class="text-right">{{ good.unitPrice }}</td>
           <td class="text-right">{{ good.amount }}</td>
@@ -55,14 +55,21 @@
             <td class="sub-tb text-right">Subtotal</td>
             <td class="sub-tb text-right">{{ subTotal }}</td>
           </tr>
-          <tr>
+          <tr v-show="withVAT">
             <td></td>
             <td></td>
             <td></td>
             <td class="sub-tb text-right">VAT (7.5%)</td>
             <td class="sub-tb text-right">{{ VAT }}</td>
           </tr>
-          <tr>
+          <tr v-show="!withVAT">
+            <td></td>
+            <td></td>
+            <td></td>
+            <th class="tot">TOTAL</th>
+            <th class="tot text-right">{{ subTotal }}</th>
+          </tr>
+          <tr v-show="withVAT">
             <td></td>
             <td></td>
             <td></td>
@@ -79,7 +86,7 @@
         </p>
       </div>
 
-      <div class="fs-10 text-right">Signed by: <br/> <b>{{ businessDetails.name }}</b> <br/> Management</div>
+      <div class="fs-10 text-right">Signed by: <br/> <b class="capitalize">{{ businessDetails.name }}</b> <br/> Management</div>
 
       <div class="footer fs-10 text-center">Powered By <a href="https://payevi.vercel.app">PayEvi</a></div>
 
@@ -105,12 +112,14 @@ export default {
     businessDetails: Object,
     clientDetails: Object,
     generated: Boolean,
+    invoice: Object,
   },
   methods: {
     getSubTotal() {
       if (!this.goods) {
         console.log("no goods found")
       } else {
+        this.withVAT = this.invoice.addVAT
         this.subTotal = 0;
         this.goods.filter(item => this.subTotal += item.amount)
       }
@@ -129,6 +138,13 @@ export default {
 </script>
 
 <style scoped>
+.capitalize {
+  text-transform: capitalize;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
 .tot {
   padding: 0 6px;
   font-size: 13px;

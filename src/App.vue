@@ -4,6 +4,7 @@ import ClientForms from "./components/ClientForms.vue";
 import GoodsForm from "./components/GoodsForm.vue";
 import NotificationBar from "./components/NotificationBar.vue";
 import InvoicePreview from "./components/InvoicePreview.vue";
+import Loading from "./components/Loading.vue";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 
@@ -13,16 +14,14 @@ export default {
     ClientForms,
     GoodsForm,
     NotificationBar,
+    Loading,
     InvoicePreview,
   },
   data() {
     return {
       businessDetails: {},
       clientDetails: {},
-      transaction: {
-        date: "",
-        No: "",
-      },
+      invoice: {},
       isGenerated: false,
       goods: [],
       businessForm: true,
@@ -39,14 +38,6 @@ export default {
     };
   },
   methods: {
-    gotoBusiness() {
-      if (!this.goods) {
-        this.noFill();
-      } else {
-        this.businessShow();
-        console.log("moved to business");
-      }
-    },
     makePDF() {
       window.html2canvas = html2canvas;
       let doc = new jsPDF("p", "pt", "a4", true);
@@ -114,6 +105,9 @@ export default {
       );
       this.newGoods = this.goods;
     },
+    addInv(name) {
+      this.invoice = name;
+    },
     removeGood(id) {
       this.goods = this.goods.filter((item) => item.id !== id);
       this.showNotifyBar(
@@ -177,6 +171,7 @@ export default {
           v-show="goodsForm"
           @add-good="addGood"
           @no-fill="noFill"
+          @add-inv="addInv"
           @generate-invoice="generateInvoice()"
           @to-client="clientShow()"
           @remove-good="removeGood"
@@ -187,8 +182,10 @@ export default {
     <div class="preview">
       <div class="invoice-preview">
         <div class="invoice-generated">
+          <Loading v-show="!isGenerated" />
           <InvoicePreview
             v-show="isGenerated"
+            :invoice="invoice"
             :generated="isGenerated"
             :businessDetails="businessDetails"
             :clientDetails="clientDetails"
@@ -196,7 +193,7 @@ export default {
           />
         </div>
       </div>
-      <div class="btn-right btn-top">
+      <div v-show="isGenerated" class="btn-right btn-top">
         <button @click="makePDF">Download PDF</button>
       </div>
     </div>

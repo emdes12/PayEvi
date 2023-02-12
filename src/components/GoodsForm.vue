@@ -44,6 +44,9 @@
       />
       Add VAT (7.5%)
     </label>
+    <br />
+    <hr />
+    <br />
 
     <h3>
       Goods <b v-if="goods.length">({{ goods.length }})</b>
@@ -144,7 +147,26 @@ export default {
     },
     SubmitDetails(e) {
       e.preventDefault();
-      this.$emit("generate-invoice");
+      if (!this.goods.length) {
+        this.$emit("no-fill");
+        console.log("generate button for error");
+      } else {
+        // console.log("generate button clicked");
+        console.log(this.goods);
+        const invoice = {
+          name: this.invoice.name,
+          date: this.invoice.date,
+          number: this.invoice.number,
+          addVAT: this.invoice.addVAT,
+        };
+
+        this.$emit("add-inv", invoice);
+        this.invoice.name = "";
+        this.invoice.date = "";
+        this.invoice.number = "";
+        this.invoice.addVAT = "";
+        this.$emit("generate-invoice");
+      }
     },
     backToClient(e) {
       e.preventDefault();
