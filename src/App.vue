@@ -189,7 +189,7 @@ export default {
             :generated="isGenerated"
             :businessDetails="businessDetails"
             :clientDetails="clientDetails"
-            :goods="newGoods"
+            :goods="goods"
           />
         </div>
       </div>

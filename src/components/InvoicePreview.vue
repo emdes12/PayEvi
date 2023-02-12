@@ -121,9 +121,7 @@ export default {
       } else {
         this.withVAT = this.invoice.addVAT
         this.subTotal = 0;
-        this.goods.filter(item => this.subTotal += item.amount);
-        this.getSubTotal();
-        this.getVAT()
+        this.goods.filter(item => this.subTotal += item.amount)
       }
     },
     getVAT() {
@@ -133,6 +131,8 @@ export default {
     }
   },
   updated() {
+        this.getSubTotal(),
+        this.getVAT()
   },
 };
 </script>
