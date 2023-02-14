@@ -41,8 +41,8 @@
         </thead>
         <tbody>
           
-        <tr v-for="good in goods" :key="good.id">
-          <td>{{ good.id }}</td>
+        <tr v-for="(good, i) in goods" :key="i">
+          <td>{{ i + 1 }}</td>
           <td class="capitalize">{{ good.name }}</td>
           <td class="text-center">{{ good.quantity }}</td>
           <td class="text-right">{{ good.unitPrice }}</td>
@@ -125,7 +125,6 @@ export default {
       }
     },
     getVAT() {
-      this.getSubTotal()
       let percent = 7.5 / 100
       this.VAT = this.subTotal * percent
     }

@@ -94,8 +94,6 @@ export default {
       this.clientDetails = name;
       this.goodShow();
       this.showNotifyBar("Client added.", "notification-bar success");
-      console.log("clientDetails:", this.clientDetails);
-      console.log("client:", name.name);
     },
     addGood(item) {
       this.goods = [...this.goods, item];
@@ -124,10 +122,10 @@ export default {
           "Your Invoice is loading.",
           "notification-bar success"
         );
+        setTimeout(() => {
+          this.isGenerated = true;
+        }, 3000);
       }
-      setTimeout(() => {
-        this.isGenerated = true;
-      }, 3000);
     },
     noFill() {
       this.showNotifyBar("Please Input Details.", "notification-bar error");

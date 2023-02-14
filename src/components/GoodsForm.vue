@@ -131,7 +131,6 @@ export default {
         this.$emit("no-fill");
       } else {
         const goodDetails = {
-          id: this.goods.length + 1,
           name: this.good.name,
           quantity: this.good.quantity,
           unitPrice: this.good.unitPrice,
@@ -151,8 +150,6 @@ export default {
         this.$emit("no-fill");
         console.log("generate button for error");
       } else {
-        // console.log("generate button clicked");
-        console.log(this.goods);
         const invoice = {
           name: this.invoice.name,
           date: this.invoice.date,
