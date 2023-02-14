@@ -134,7 +134,7 @@ export default {
           name: this.good.name,
           quantity: this.good.quantity,
           unitPrice: this.good.unitPrice,
-          amount: this.good.quantity * this.good.unitPrice,
+          // amount: this.good.quantity * this.good.unitPrice,
         };
 
         this.$emit("add-good", goodDetails);
