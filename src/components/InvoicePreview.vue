@@ -2,7 +2,7 @@
   <aside id="print-invoice">
     <header>
       <div class="business-details">
-        <h2 class="capitalize">{{ businessDetails.name }}</h2>
+        <h2 class="uppercase">{{ businessDetails.name }}</h2>
         <p class="capitalize">{{ businessDetails.description }}</p>
         <p class="capitalize">{{ businessDetails.number }}</p>
       </div>
@@ -82,7 +82,7 @@
       <div class="fs-10 terms">
         <b>TERMS AND CONDITIONS</b>
         <p>
-        Goods received in goods condition are not 
+        Goods received in goods condition cannot be returned
         </p>
       </div>
 

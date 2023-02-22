@@ -117,6 +117,7 @@ export default {
       this.newGoods = this.goods;
     },
     generateInvoice() {
+      this.isGenerated = false;
       if (!this.goods) {
         this.showNotifyBar("No items to add.", "notification-bar error");
       } else {
