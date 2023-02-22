@@ -24,6 +24,8 @@ export default {
       invoice: {},
       isGenerated: false,
       goods: [],
+      subTotal: 0,
+      VAT: 0,
       businessForm: true,
       clientForm: false,
       goodsForm: false,
@@ -126,6 +128,14 @@ export default {
           this.isGenerated = true;
         }, 3000);
       }
+      if (!this.goods) {
+        console.log("no goods found");
+      } else {
+        this.subTotal = 0;
+        this.goods.filter((item) => (this.subTotal += item.amount));
+      }
+      let percent = 7.5 / 100;
+      this.VAT = this.subTotal * percent;
     },
     noFill() {
       this.showNotifyBar("Please Input Details.", "notification-bar error");
@@ -159,7 +169,7 @@ export default {
 
         <ClientForms
           @add-client="addClient"
-          @to-business="businessShow()"
+          @to-business="businessShow"
           @no-fill="noFill"
           v-show="clientForm"
         />
@@ -170,8 +180,8 @@ export default {
           @add-good="addGood"
           @no-fill="noFill"
           @add-inv="addInv"
-          @generate-invoice="generateInvoice()"
-          @to-client="clientShow()"
+          @generate-invoice="generateInvoice"
+          @to-client="clientShow"
           @remove-good="removeGood"
         />
       </div>
@@ -187,6 +197,8 @@ export default {
             :generated="isGenerated"
             :businessDetails="businessDetails"
             :clientDetails="clientDetails"
+            :subTotal="subTotal"
+            :VAT="VAT"
             :goods="goods"
           />
         </div>

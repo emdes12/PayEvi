@@ -55,21 +55,21 @@
             <td class="sub-tb text-right">Subtotal</td>
             <td class="sub-tb text-right">{{ subTotal }}</td>
           </tr>
-          <tr v-show="withVAT">
+          <tr v-show="invoice.addVAT">
             <td></td>
             <td></td>
             <td></td>
             <td class="sub-tb text-right">VAT (7.5%)</td>
             <td class="sub-tb text-right">{{ VAT }}</td>
           </tr>
-          <tr v-show="!withVAT">
+          <tr v-show="!invoice.addVAT">
             <td></td>
             <td></td>
             <td></td>
             <th class="tot">TOTAL</th>
             <th class="tot text-right">{{ subTotal }}</th>
           </tr>
-          <tr v-show="withVAT">
+          <tr v-show="invoice.addVAT">
             <td></td>
             <td></td>
             <td></td>
@@ -103,8 +103,6 @@ export default {
   name: "Table",
   data() {
     return {
-      subTotal: "",
-      VAT: "",
     }
   },
   props: {
@@ -113,25 +111,12 @@ export default {
     clientDetails: Object,
     generated: Boolean,
     invoice: Object,
+    VAT: Number,
+    subTotal: Number,
   },
   methods: {
-    getSubTotal() {
-      if (!this.goods) {
-        console.log("no goods found")
-      } else {
-        this.withVAT = this.invoice.addVAT
-        this.subTotal = 0;
-        this.goods.filter(item => this.subTotal += item.amount)
-      }
-    },
-    getVAT() {
-      let percent = 7.5 / 100
-      this.VAT = this.subTotal * percent
-    }
   },
   updated() {
-        this.getSubTotal(),
-        this.getVAT()
   },
 };
 </script>
